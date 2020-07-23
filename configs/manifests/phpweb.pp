@@ -1,0 +1,14 @@
+exec { 'apt-update':
+    command => '/usr/bin/apt-get update'
+}
+
+#Install apache
+package { ['php7.2', 'php7.2-mysql']:
+    require => Exec['apt-update'],
+    ensure => installed,
+}
+
+exec { 'run-php7':
+    require => Package['php7.2],
+    command => '/usr/bin/php -S localhost:80 &'
+}

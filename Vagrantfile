@@ -13,6 +13,10 @@ $scriptChangeBindIpDefaultMysql = <<-SCRIPT
     service mysql restart
 SCRIPT
 
+$installPuppet = <<-SCRIPT
+    apt-get update && apt-get install -y puppet
+SCRIPT
+
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/bionic64"
 
@@ -32,6 +36,8 @@ Vagrant.configure("2") do |config|
   config.vm.define "phpweb" do |phpweb|
     phpweb.vm.network "forwarded_port", guest: 80, host: 8090
     phpweb.vm.network "public_network", ip: "192.168.40.5"
+    phpweb.vm.provision "shell", inline: $installPuppet
+
   end
   
 end
