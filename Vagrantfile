@@ -34,10 +34,16 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "phpweb" do |phpweb|
-    phpweb.vm.network "forwarded_port", guest: 80, host: 8090
-    phpweb.vm.network "public_network", ip: "192.168.40.5"
+    phpweb.vm.network "forwarded_port", guest: 8888, host: 8888
+    phpweb.vm.network "private_network", ip: "192.168.40.55"
+
     phpweb.vm.provision "shell", inline: $installPuppet
 
+    #Depois de instalar o puppet, vamos instalar os itens provisionados no arquivo phpweb.pp em configs/manifests
+    phpweb.vm.provision "puppet" do |puppet|
+        puppet.manifests_path = "./configs/manifests"
+        puppet.manifest_file = "phpweb.pp"
+    end
   end
   
 end
