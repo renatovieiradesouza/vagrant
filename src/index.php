@@ -1,6 +1,6 @@
 <?php 
     echo "Testando conexão PHP <br/><br/>";
-    $serverName = "192.168.40.4";
+    $serverName = "192.168.40.56";
     $userName = "phpuser";
     $password = "pass";
 
