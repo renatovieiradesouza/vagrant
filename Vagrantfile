@@ -90,6 +90,14 @@ Vagrant.configure("2") do |config|
     ansible.vm.provision "shell", inline: $AnsibleBook
   end
 
+  config.vm.define "cached" do |cached|
+    cached.vm.box = "centos/7"
+    cached.vm.provider "virtualbox" do |v|
+      v.memory = 512
+      v.cpus = 1
+      v.name = "centos7_cached"
+    end
+  end
   
 end
 
