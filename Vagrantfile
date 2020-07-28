@@ -61,6 +61,12 @@ Vagrant.configure("2") do |config|
     phpweb.vm.network "forwarded_port", guest: 8888, host: 8888
     phpweb.vm.network "public_network", bridge: "en0: Wi-Fi (Wireless)", ip: "192.168.40.55"
 
+    phpweb.vm.provider "virtualbox" do |v|
+      v.memory = 1024
+      v.cpus = 1
+      v.name = "ubuntu_bionic_php7"
+    end
+
     phpweb.vm.provision "shell", inline: $installPuppet
 
     #Depois de instalar o puppet, vamos instalar os itens provisionados no arquivo phpweb.pp em configs/manifests
