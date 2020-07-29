@@ -99,5 +99,16 @@ Vagrant.configure("2") do |config|
     end
   end
   
+  config.vm.define "docker" do |docker|
+    docker.vm.provider "virtualbox" do |v|
+      v.memory = 512
+      v.cpus =1
+      v.name = "ubuntu_docker"
+    end
+
+    docker.vm.provision "shell", 
+      inline: "apt-get update && apt-get install -y docker.io && service docker start && systemctl enable docker && usermod -a -G docker vagrant"
+  end
+
 end
 
